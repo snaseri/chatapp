@@ -8,6 +8,13 @@ const USER_JOIN_EVENT = "userJoined"
 //An Array to keep track of all connected users
 const currUsers = [];
 
+//Persisting messages
+const savedMessages = [];
+const fs = require('fs');
+
+
+
+
 io.on("connection", (socket) => {
     console.log(`Client ${socket.id} connected`);
 
@@ -22,11 +29,13 @@ io.on("connection", (socket) => {
         //Binding sender username to the message
         for (var i=0, len=currUsers.length; i<len; ++i ){
             if (currUsers[i].senderId == data.senderId) {
-                console.log("called")
                 data.username = currUsers[i].username;
             }
         }
         io.in(roomId).emit(NEW_MESSAGE_EVENT, data);
+        savedMessages.push(data);
+        //logging messages into a json file
+        fs.writeFileSync('messagelog.json', JSON.stringify(data));
     });
 
     //Tracking User Info

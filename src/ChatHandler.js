@@ -45,7 +45,8 @@ const useChat = (roomId) => {
         socketRef.current.emit(NEW_MESSAGE_EVENT, {
             body: messageBody,
             senderId: socketRef.current.id,
-            username: "Unknown"
+            username: "Unknown",
+            roomId: roomId
         });
     };
 
