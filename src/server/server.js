@@ -9,8 +9,20 @@ const USER_JOIN_EVENT = "userJoined"
 const currUsers = [];
 
 //Persisting messages
-const savedMessages = [];
+//reading messages from json
 const fs = require('fs');
+
+let savedMessages = [];
+
+//Checking if the file exists
+try {
+    let rawdata = fs.readFileSync('messagelog.json');
+    savedMessages = JSON.parse(rawdata);
+} catch (err) {
+    console.log("There was an error with loading the messages: " + err);
+}
+
+
 
 
 
@@ -35,7 +47,8 @@ io.on("connection", (socket) => {
         io.in(roomId).emit(NEW_MESSAGE_EVENT, data);
         savedMessages.push(data);
         //logging messages into a json file
-        fs.writeFileSync('messagelog.json', JSON.stringify(data));
+        //var jsonData = JSON.parse(data);
+        fs.writeFileSync('messagelog.json', JSON.stringify(savedMessages));
     });
 
     //Tracking User Info
