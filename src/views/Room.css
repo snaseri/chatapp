@@ -48,6 +48,36 @@ body {background-color: white;}
     border-radius: 6px;
     float: left;
 }
+.file-input::-webkit-file-upload-button {
+    visibility: hidden;
+}
+
+.file-input:before {
+    content: 'Choose an avatar';
+    display: inline-block;
+    background-color: #31a24c;
+    color: white;
+    border: 1px solid #999;
+    border-radius: 3px;
+    padding: 5px 8px;
+    outline: none;
+    white-space: nowrap;
+    -webkit-user-select: none;
+    cursor: pointer;
+    font-size: 10pt;
+    float: left;
+    min-width: 100%;
+    min-height: 100%;
+    margin-right: 5px;
+}
+
+.file-input:hover::before {
+    border-color: black;
+}
+.file-input:active::before {
+    background: -webkit-linear-gradient(top, #e3e3e3, #f9f9f9);
+}
+
 
 .chat-room-name {
     margin-top: 0;

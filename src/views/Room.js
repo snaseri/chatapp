@@ -43,6 +43,10 @@ const ChatRoom = (props) => {
                 <button to={`/RoomSelector`} onClick={handleSetUsername} className="select-name-button">
                     Set
                 </button>
+                <form method="post" enctype="multipart/form-data" action="/upload">
+                 <input  className="file-input" type="file" name="file"/>
+                 <input type="submit" value="Submit"/>
+                </form>
                 <div className="chat-room-container">
                     <div className="messages-container">
                         <ol className="messages-list">

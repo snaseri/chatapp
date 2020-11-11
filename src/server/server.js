@@ -8,7 +8,6 @@ const USER_JOIN_EVENT = "userJoined"
 //An Array to keep track of all connected users
 const currUsers = [];
 
-
 io.on("connection", (socket) => {
     console.log(`Client ${socket.id} connected`);
 
