@@ -23,10 +23,6 @@ try {
 }
 
 
-
-
-
-
 io.on("connection", (socket) => {
     console.log(`Client ${socket.id} connected`);
 
@@ -47,8 +43,7 @@ io.on("connection", (socket) => {
         io.in(roomId).emit(NEW_MESSAGE_EVENT, data);
         savedMessages.push(data);
         //logging messages into a json file
-        //var jsonData = JSON.parse(data);
-        fs.writeFileSync('messagelog.json', JSON.stringify(savedMessages));
+        fs.writeFileSync("messagelog.json", JSON.stringify(savedMessages));
     });
 
     //Tracking User Info
@@ -58,19 +53,21 @@ io.on("connection", (socket) => {
         io.in(roomId).emit(USER_JOIN_EVENT, data);
     });
 
-    // Leave the room if the user closes the socket
+    // Remove user from the array of current users when a user leaves
     socket.on("disconnect", () => {
         console.log(`Client ${socket.id} diconnected`);
-        // console.log("=-=-=-=-=-=-=-=-=-=-=");
-        // for (var i=0, len=currUsers.length; i<len; ++i ){
-        //     console.log(currUsers[i].senderId);
-        //     var currentId = currUsers[i].senderId;
-        //     if (currentId = socket.id) {
-        //         currUsers.splice(i,1);
-        //     }
-        // }
-        // console.log("=-=-=-=-=-=-=-=-=-=-=");
-        // console.log(currUsers);
+        console.log("=-=-=-=-=-=-=-=-=-=-=");
+
+        //Removing users from currUsers variable on disconnect
+        for (var i=currUsers.length -1, len=currUsers.length; i>=0; i-- ){
+            var currentId = currUsers[i].senderId;
+            if (currentId == socket.id) {
+                console.log(currUsers[i].username + " Deleted");
+                currUsers.splice(i,1);
+                console.log(currUsers);
+            }
+        }
+        console.log("=-=-=-=-=-=-=-=-=-=-=");
         socket.leave(roomId);
     });
 });
