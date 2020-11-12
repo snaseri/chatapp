@@ -36,16 +36,15 @@ const ChatRoom = (props) => {
 
     return (
         <div>
-
             <div className="active-users">
-                <p>{userList.length}</p>
+                <p></p>
+                <h2>Active Users: ({userList.length}) </h2>
                 <ul>
                     {userList.map(function(item) {
                         return <li key={item}>{item.username}</li>;
                     })}
                 </ul>
             </div>
-            <h1 className="chat-room-name">You're in Room: {roomId}</h1>
             <div className="chat-room-header">
                 <input
                     className="name-input-field"
@@ -62,6 +61,7 @@ const ChatRoom = (props) => {
                  <input type="submit" value="Submit"/>
                 </form>
 
+                <b><p className="chat-room-name">You're in Room: {roomId}</p></b>
                 <div className="chat-room-container">
                     <div className="messages-container">
                         <ol className="messages-list">

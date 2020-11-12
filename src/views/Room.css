@@ -1,5 +1,18 @@
 body {background-color: white;}
 
+ul {
+    list-style: none; /* Remove default bullets */
+}
+
+ul li::before {
+    content: "\2022";  /* Add content: \2022 is the CSS Code/unicode for a bullet */
+    color: greenyellow; /* Change the color */
+    font-weight: bold; /* If you want it to be bold */
+    display: inline-block; /* Needed to add space between the bullet and the text */
+    width: 1em; /* Also needed for space (tweak if needed) */
+    margin-left: -1em; /* Also needed for space (tweak if needed) */
+}
+
 .chat-room-container {
     position: fixed;
     left: 0;
@@ -16,11 +29,22 @@ body {background-color: white;}
 
 .chat-room-header {
     padding-left: 18px;
-    padding-top: 5px;
+}
+
+.chat-room-name {
+    margin-top: 0;
+    color: #54aaeb;
+    padding: 5px;
+    float: right;
+    font-size: large;
+    max-width: 30%;
+    margin-right: 20px;
 }
 
 .active-users {
     float: right;
+    padding-right: 5px;
+    float: top;
 }
 
 .name-input-field {
@@ -80,16 +104,6 @@ body {background-color: white;}
 }
 .file-input:active::before {
     background: -webkit-linear-gradient(top, #e3e3e3, #f9f9f9);
-}
-
-
-.chat-room-name {
-    margin-top: 0;
-    color: #54aaeb;
-    padding: 5px;
-    float: right;
-    font-size: large;
-    max-width: 30%;
 }
 
 .messages-container {
