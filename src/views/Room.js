@@ -6,10 +6,10 @@ import useChat from "../ChatHandler";
 
 const ChatRoom = (props) => {
     const { roomId } = props.match.params;
-    const { messages, sendMessage, name, selectName  } = useChat(roomId);
+    const { messages, sendMessage, username, selectName, userlist  } = useChat(roomId);
     const [newMessage, setNewMessage] = React.useState("");
     const [userName, setUsername] = React.useState();
-
+    const [uesrlist, setUesrList] = React.useState([]);
 
     const handleUsernameChange = (e) => {
         setUsername(e.target.value);
@@ -31,6 +31,17 @@ const ChatRoom = (props) => {
 
     return (
         <div>
+            <div className="active-users">
+                <ol>
+                {userlist.map((user, i) => (
+                    <li
+                        key={i}
+                    >
+                        {userlist.username}
+                    </li>
+                ))}
+            </ol>
+            </div>
             <h1 className="chat-room-name">You're in Room: {roomId}</h1>
             <div className="chat-room-header">
                 <input
@@ -47,6 +58,7 @@ const ChatRoom = (props) => {
                  <input  className="file-input" type="file" name="file"/>
                  <input type="submit" value="Submit"/>
                 </form>
+
                 <div className="chat-room-container">
                     <div className="messages-container">
                         <ol className="messages-list">

@@ -28,15 +28,33 @@ io.on("connection", (socket) => {
 
     // Join a conversation
     const { roomId } = socket.handshake.query;
-    socket.join(roomId);
+    socket.join(roomId)
 
+    //Adding the default user
     const defaultUser = {
         username: "Unknown",
         senderId: socket.id,
         roomId: roomId
     }
-
     currUsers.push(defaultUser);
+
+    //Obtaining a list of users who are in this room
+    let usersInCurrentRoom = [];
+    let user;
+    for (var i = 0, len=currUsers.length; i < len; i++) {
+        console.log("Users in current room: ");
+        console.log(currUsers[i].roomId);
+        if (currUsers[i].roomId == roomId) {
+            console.log("CALLED");
+            usersInCurrentRoom.push(currUsers[i].username);
+        }
+    }
+    console.log("Users in current room: " + usersInCurrentRoom);
+
+    io.in(roomId).emit(USER_JOIN_EVENT, usersInCurrentRoom);
+    console.log("List of users emiited in room " + roomId);
+
+
 
     // Listen for new messages
     socket.on(NEW_MESSAGE_EVENT, (data) => {
@@ -56,7 +74,7 @@ io.on("connection", (socket) => {
 
     //Tracking User Info
     socket.on(NAME_SELECT_EVENT, (data) => {
-        console.log("User selected name: ");
+        console.log("User selected name: " + data.username);
         removeUserBySocketId(currUsers, data.senderId);
         currUsers.push(data);
         io.in(roomId).emit(USER_JOIN_EVENT, data);
@@ -65,13 +83,14 @@ io.on("connection", (socket) => {
     // Remove user from the array of current users when a user leaves
     socket.on("disconnect", () => {
         console.log(`Client ${socket.id} diconnected`);
-        console.log("=-=-=-=-=-=-=-=-=-=-=");
-
         //Removing users from currUsers variable on disconnect
         removeUserBySocketId(currUsers, socket.id)
-        console.log("=-=-=-=-=-=-=-=-=-=-=");
         socket.leave(roomId);
     });
+});
+
+server.listen(PORT, () => {
+    console.log(`Listening on port ${PORT}`);
 });
 
 //Moving the remove user code into a function since its been used more than once.
@@ -81,11 +100,6 @@ function removeUserBySocketId(currentUsersArray, socketIdToDeleteUser) {
         if (currentId == socketIdToDeleteUser) {
             console.log(currentUsersArray[i].username + " Deleted");
             currUsers.splice(i,1);
-            console.log(currentUsersArray);
         }
     }
 }
-
-server.listen(PORT, () => {
-    console.log(`Listening on port ${PORT}`);
-});
