@@ -2,14 +2,18 @@ import React from "react";
 
 import "./Room.css";
 import useChat from "../ChatHandler";
+// import useList from "../UserHandler";
 
 
 const ChatRoom = (props) => {
     const { roomId } = props.match.params;
-    const { messages, sendMessage, username, selectName, userlist  } = useChat(roomId);
+    // const {userList} = useList(roomId);
+    const { messages, sendMessage, username, selectName, userList} = useChat(roomId);
+
+
     const [newMessage, setNewMessage] = React.useState("");
     const [userName, setUsername] = React.useState();
-    const [uesrlist, setUesrList] = React.useState([]);
+
 
     const handleUsernameChange = (e) => {
         setUsername(e.target.value);
@@ -29,18 +33,13 @@ const ChatRoom = (props) => {
         setNewMessage("");
     };
 
+    console.log(userList);
+    console.log(messages);
+
     return (
         <div>
             <div className="active-users">
-                <ol>
-                {userlist.map((user, i) => (
-                    <li
-                        key={i}
-                    >
-                        {userlist.username}
-                    </li>
-                ))}
-            </ol>
+                <p>{userList.length}</p>
             </div>
             <h1 className="chat-room-name">You're in Room: {roomId}</h1>
             <div className="chat-room-header">

@@ -11,7 +11,7 @@ const SERVER_URL = "http://localhost:4000";
 const useChat = (roomId) => {
     const [messages, setMessages] = useState([]);
     const [username, setUsername] = useState("");
-    const [userlist, setUserList] = useState([]);
+    const [userList, setUserList] = useState([]);
   //  const [] = useState("");
     const socketRef = useRef();
 
@@ -31,18 +31,14 @@ const useChat = (roomId) => {
 
         //USER JOIN
         socketRef.current.on(USER_JOIN_EVENT, (data) => {
-            const incomingUser = {
-                ...data
-            };
-            setUserList((username) => [...username, incomingUser]);
+            setUserList(data);
         });
 
         //USER NAME EVENT
         socketRef.current.on(NAME_SELECT_EVENT, (data) => {
-            const incomingUserChange = {
-                ...data
-            };
-            setUsername((userlist) => [...userlist, incomingUserChange]);
+            console.log("current name " + data.toString());
+            //setUsername((userName) => [...userName, data]);
+            setUsername(data);
         });
 
         return () => {
@@ -77,7 +73,7 @@ const useChat = (roomId) => {
         });
     };
 
-    return { messages, sendMessage, username, selectName, userlist };
+    return { messages, sendMessage, username, selectName, userList };
 };
 
 export default useChat;

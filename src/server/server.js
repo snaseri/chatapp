@@ -24,6 +24,7 @@ try {
 
 
 io.on("connection", (socket) => {
+    console.log("=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=");
     console.log(`Client ${socket.id} connected`);
 
     // Join a conversation
@@ -40,26 +41,19 @@ io.on("connection", (socket) => {
 
     //Obtaining a list of users who are in this room
     let usersInCurrentRoom = [];
-    let user;
     for (var i = 0, len=currUsers.length; i < len; i++) {
-        console.log("Users in current room: ");
-        console.log(currUsers[i].roomId);
         if (currUsers[i].roomId == roomId) {
-            console.log("CALLED");
-            usersInCurrentRoom.push(currUsers[i].username);
+            console.log(currUsers[i]);
+            usersInCurrentRoom.push(currUsers[i]);
         }
     }
-    console.log("Users in current room: " + usersInCurrentRoom);
-
-    io.in(roomId).emit(USER_JOIN_EVENT, usersInCurrentRoom);
-    console.log("List of users emiited in room " + roomId);
-
+    console.log("Users in current room: " + usersInCurrentRoom.toString());
 
 
     // Listen for new messages
     socket.on(NEW_MESSAGE_EVENT, (data) => {
         console.log("Current array: ");
-        console.log(currUsers);
+        console.log(usersInCurrentRoom);
         //Binding sender username to the message
         for (var i=0, len=currUsers.length; i<len; ++i ){
             if (currUsers[i].senderId == data.senderId) {
@@ -87,7 +81,14 @@ io.on("connection", (socket) => {
         removeUserBySocketId(currUsers, socket.id)
         socket.leave(roomId);
     });
+
+    io.in(roomId).emit(USER_JOIN_EVENT, usersInCurrentRoom);
+
+    console.log("Total users: " + currUsers.length);
+    console.log("=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=");
 });
+
+
 
 server.listen(PORT, () => {
     console.log(`Listening on port ${PORT}`);
