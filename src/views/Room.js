@@ -2,12 +2,10 @@ import React from "react";
 
 import "./Room.css";
 import useChat from "../ChatHandler";
-// import useList from "../UserHandler";
 
 
 const ChatRoom = (props) => {
     const { roomId } = props.match.params;
-    // const {userList} = useList(roomId);
     const { messages, sendMessage, username, selectName, userList} = useChat(roomId);
 
 
@@ -38,8 +36,14 @@ const ChatRoom = (props) => {
 
     return (
         <div>
+
             <div className="active-users">
                 <p>{userList.length}</p>
+                <ul>
+                    {userList.map(function(item) {
+                        return <li key={item}>{item.username}</li>;
+                    })}
+                </ul>
             </div>
             <h1 className="chat-room-name">You're in Room: {roomId}</h1>
             <div className="chat-room-header">
