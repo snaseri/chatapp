@@ -31,10 +31,10 @@ ul li::before {
     padding-left: 18px;
 }
 
-.chat-room-name {
+.chat-room-metric {
     margin-top: 0;
     color: #54aaeb;
-    padding: 5px;
+    padding: 0px;
     float: right;
     font-size: large;
     max-width: 30%;

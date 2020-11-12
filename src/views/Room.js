@@ -31,9 +31,6 @@ const ChatRoom = (props) => {
         setNewMessage("");
     };
 
-    console.log(userList);
-    console.log(messages);
-
     return (
         <div>
             <div className="active-users">
@@ -56,12 +53,15 @@ const ChatRoom = (props) => {
                 <button to={`/RoomSelector`} onClick={handleSetUsername} className="select-name-button">
                     Set
                 </button>
-                <form method="post" enctype="multipart/form-data" action="/upload">
-                 <input  className="file-input" type="file" name="file"/>
-                 <input type="submit" value="Submit"/>
-                </form>
+                {/*<form method="post" enctype="multipart/form-data" action="/upload">*/}
+                {/* <input  className="file-input" type="file" name="file"/>*/}
+                {/* <input type="submit" value="Submit"/>*/}
+                {/*</form>*/}
 
-                <b><p className="chat-room-name">You're in Room: {roomId}</p></b>
+                <div className="chat-room-metric">
+                <b><p>You're in Room: {roomId}</p></b>
+                <p>Messages sent in this room: {messages.length}</p>
+                </div>
                 <div className="chat-room-container">
                     <div className="messages-container">
                         <ol className="messages-list">

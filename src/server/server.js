@@ -39,17 +39,6 @@ io.on("connection", (socket) => {
     }
     currUsers.push(defaultUser);
 
-    //Obtaining a list of users who are in this room
-    // let usersInCurrentRoom = [];
-    // for (var i = 0, len=currUsers.length; i < len; i++) {
-    //     if (currUsers[i].roomId == roomId) {
-    //         console.log(currUsers[i]);
-    //         usersInCurrentRoom.push(currUsers[i]);
-    //     }
-    // }
-    // console.log("Users in current room: " + usersInCurrentRoom.toString());
-    // io.in(roomId).emit(USER_JOIN_EVENT, usersInCurrentRoom);
-
     generateRoomActiveUsers(roomId)
 
     // Listen for new messages
@@ -111,11 +100,10 @@ function generateRoomActiveUsers(roomId) {
     let usersInCurrentRoom = [];
     for (var i = 0, len=currUsers.length; i < len; i++) {
         if (currUsers[i].roomId == roomId) {
-            console.log(currUsers[i]);
             usersInCurrentRoom.push(currUsers[i]);
         }
     }
-    console.log("Users in current room: " + usersInCurrentRoom.toString());
+    console.log("Users in room " + roomId +  ": " + usersInCurrentRoom.toString());
     io.in(roomId).emit(USER_JOIN_EVENT, usersInCurrentRoom);
 }
 
