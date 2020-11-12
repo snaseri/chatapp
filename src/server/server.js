@@ -40,20 +40,22 @@ io.on("connection", (socket) => {
     currUsers.push(defaultUser);
 
     //Obtaining a list of users who are in this room
-    let usersInCurrentRoom = [];
-    for (var i = 0, len=currUsers.length; i < len; i++) {
-        if (currUsers[i].roomId == roomId) {
-            console.log(currUsers[i]);
-            usersInCurrentRoom.push(currUsers[i]);
-        }
-    }
-    console.log("Users in current room: " + usersInCurrentRoom.toString());
+    // let usersInCurrentRoom = [];
+    // for (var i = 0, len=currUsers.length; i < len; i++) {
+    //     if (currUsers[i].roomId == roomId) {
+    //         console.log(currUsers[i]);
+    //         usersInCurrentRoom.push(currUsers[i]);
+    //     }
+    // }
+    // console.log("Users in current room: " + usersInCurrentRoom.toString());
+    // io.in(roomId).emit(USER_JOIN_EVENT, usersInCurrentRoom);
 
+    generateRoomActiveUsers(roomId)
 
     // Listen for new messages
     socket.on(NEW_MESSAGE_EVENT, (data) => {
         console.log("Current array: ");
-        console.log(usersInCurrentRoom);
+        console.log();
         //Binding sender username to the message
         for (var i=0, len=currUsers.length; i<len; ++i ){
             if (currUsers[i].senderId == data.senderId) {
@@ -71,7 +73,7 @@ io.on("connection", (socket) => {
         console.log("User selected name: " + data.username);
         removeUserBySocketId(currUsers, data.senderId);
         currUsers.push(data);
-        io.in(roomId).emit(USER_JOIN_EVENT, data);
+        generateRoomActiveUsers(roomId);
     });
 
     // Remove user from the array of current users when a user leaves
@@ -82,7 +84,6 @@ io.on("connection", (socket) => {
         socket.leave(roomId);
     });
 
-    io.in(roomId).emit(USER_JOIN_EVENT, usersInCurrentRoom);
 
     console.log("Total users: " + currUsers.length);
     console.log("=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=");
@@ -104,3 +105,16 @@ function removeUserBySocketId(currentUsersArray, socketIdToDeleteUser) {
         }
     }
 }
+
+function generateRoomActiveUsers(roomId) {
+    let usersInCurrentRoom = [];
+    for (var i = 0, len=currUsers.length; i < len; i++) {
+        if (currUsers[i].roomId == roomId) {
+            console.log(currUsers[i]);
+            usersInCurrentRoom.push(currUsers[i]);
+        }
+    }
+    console.log("Users in current room: " + usersInCurrentRoom.toString());
+    io.in(roomId).emit(USER_JOIN_EVENT, usersInCurrentRoom);
+}
+
