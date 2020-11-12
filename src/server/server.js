@@ -30,6 +30,14 @@ io.on("connection", (socket) => {
     const { roomId } = socket.handshake.query;
     socket.join(roomId);
 
+    const defaultUser = {
+        username: "Unknown",
+        senderId: socket.id,
+        roomId: roomId
+    }
+
+    currUsers.push(defaultUser);
+
     // Listen for new messages
     socket.on(NEW_MESSAGE_EVENT, (data) => {
         console.log("Current array: ");
@@ -49,6 +57,7 @@ io.on("connection", (socket) => {
     //Tracking User Info
     socket.on(NAME_SELECT_EVENT, (data) => {
         console.log("User selected name: ");
+        removeUserBySocketId(currUsers, data.senderId);
         currUsers.push(data);
         io.in(roomId).emit(USER_JOIN_EVENT, data);
     });
@@ -59,18 +68,23 @@ io.on("connection", (socket) => {
         console.log("=-=-=-=-=-=-=-=-=-=-=");
 
         //Removing users from currUsers variable on disconnect
-        for (var i=currUsers.length -1, len=currUsers.length; i>=0; i-- ){
-            var currentId = currUsers[i].senderId;
-            if (currentId == socket.id) {
-                console.log(currUsers[i].username + " Deleted");
-                currUsers.splice(i,1);
-                console.log(currUsers);
-            }
-        }
+        removeUserBySocketId(currUsers, socket.id)
         console.log("=-=-=-=-=-=-=-=-=-=-=");
         socket.leave(roomId);
     });
 });
+
+//Moving the remove user code into a function since its been used more than once.
+function removeUserBySocketId(currentUsersArray, socketIdToDeleteUser) {
+    for (var i=currentUsersArray.length -1, len=currentUsersArray.length; i>=0; i-- ){
+        var currentId = currentUsersArray[i].senderId;
+        if (currentId == socketIdToDeleteUser) {
+            console.log(currentUsersArray[i].username + " Deleted");
+            currUsers.splice(i,1);
+            console.log(currentUsersArray);
+        }
+    }
+}
 
 server.listen(PORT, () => {
     console.log(`Listening on port ${PORT}`);

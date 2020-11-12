@@ -57,6 +57,7 @@ const useChat = (roomId) => {
         socketRef.current.emit(NAME_SELECT_EVENT, {
             username: name,
             senderId: socketRef.current.id,
+            roomId: roomId
         });
     };
 
