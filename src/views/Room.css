@@ -145,6 +145,15 @@ ul li::before {
     margin-right: auto;
 }
 
+.console-message {
+    background-color: #f1b335;
+    color: black;
+    font-weight: bold;
+    width: 90%;
+    margin-right: auto;
+}
+
+
 .new-message-input-field {
     height: 79px;
     max-height: 32%;

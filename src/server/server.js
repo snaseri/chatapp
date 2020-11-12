@@ -32,7 +32,7 @@ io.on("connection", (socket) => {
     const { roomId } = socket.handshake.query;
     socket.join(roomId)
 
-    io.in(roomId).emit(NEW_CONSOLE_MESSAGE_EVENT, "Just a message");
+    io.in(roomId).emit(NEW_CONSOLE_MESSAGE_EVENT, "New User Has Joined");
     //Adding the default user
     const defaultUser = {
         username: "Unknown",
@@ -63,6 +63,9 @@ io.on("connection", (socket) => {
     socket.on(NAME_SELECT_EVENT, (data) => {
         //Console logging the event in room
         console.log("User selected name: " + data.username);
+        let oldName = getUserBySocketID(socket.id)
+        let consoleMsg = oldName.username + " has changed their name to " + data.username;
+        io.in(roomId).emit(NEW_CONSOLE_MESSAGE_EVENT, consoleMsg);
         removeUserBySocketId(currUsers, data.senderId);
         currUsers.push(data);
         generateRoomActiveUsers(roomId);
@@ -71,6 +74,9 @@ io.on("connection", (socket) => {
     // Remove user from the array of current users when a user leaves
     socket.on("disconnect", () => {
         console.log(`Client ${socket.id} diconnected`);
+        let deletedUser = getUserBySocketID(socket.id)
+        let delConsoleMsg = deletedUser.username + " Has left. "
+        io.in(roomId).emit(NEW_CONSOLE_MESSAGE_EVENT, delConsoleMsg);
         //Removing users from currUsers variable on disconnect
         removeUserBySocketId(currUsers, socket.id)
         generateRoomActiveUsers(roomId)
@@ -95,6 +101,15 @@ function removeUserBySocketId(currentUsersArray, socketIdToDeleteUser) {
         if (currentId == socketIdToDeleteUser) {
             console.log(currentUsersArray[i].username + " Deleted");
             currUsers.splice(i,1);
+        }
+    }
+}
+
+function getUserBySocketID(socketId) {
+    for (var i=currUsers.length -1, len=currUsers.length; i>=0; i-- ){
+        var currentId = currUsers[i].senderId;
+        if (currentId == socketId) {
+            return currUsers[i];
         }
     }
 }
