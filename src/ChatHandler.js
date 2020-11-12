@@ -4,6 +4,7 @@ import socketIOClient from "socket.io-client";
 const USER_JOIN_EVENT = "userJoined"
 const NAME_SELECT_EVENT = "nameSelected";
 const NEW_MESSAGE_EVENT = "newMessage";
+const NEW_CONSOLE_MESSAGE_EVENT = "newConsoleMessage";
 const SERVER_URL = "http://localhost:4000";
 
 
@@ -22,12 +23,31 @@ const useChat = (roomId) => {
 
         // NEW MESSAGE EVENT
         socketRef.current.on(NEW_MESSAGE_EVENT, (message) => {
+            let messageOwner = "receiver";
+            if (message.senderId === socketRef.current.id) {
+                messageOwner = "sender"
+            }
             const incomingMessage = {
                 ...message,
                 ownedByCurrentUser: message.senderId === socketRef.current.id,
+                messageOwner
             };
             setMessages((messages) => [...messages, incomingMessage]);
         });
+
+        //CONSOLE LOG
+        socketRef.current.on(NEW_CONSOLE_MESSAGE_EVENT, (data) => {
+                const incomingConsoleMessage = {
+                    body: data,
+                    senderId: "CONSOLE",
+                    username: "CONSOLE",
+                    roomId: roomId,
+                    ownedByCurrentUser: 1 === 2,
+                    messageOwner: "CONSOLE"
+                };
+                setMessages((messages) => [...messages, incomingConsoleMessage]);
+            });
+
 
         //USER JOIN
         socketRef.current.on(USER_JOIN_EVENT, (data) => {

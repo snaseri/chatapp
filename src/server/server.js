@@ -3,6 +3,7 @@ const io = require("socket.io")(server);
 
 const PORT = 4000;
 const NEW_MESSAGE_EVENT = "newMessage";
+const NEW_CONSOLE_MESSAGE_EVENT = "newConsoleMessage";
 const NAME_SELECT_EVENT = "nameSelected";
 const USER_JOIN_EVENT = "userJoined"
 //An Array to keep track of all connected users
@@ -31,6 +32,7 @@ io.on("connection", (socket) => {
     const { roomId } = socket.handshake.query;
     socket.join(roomId)
 
+    io.in(roomId).emit(NEW_CONSOLE_MESSAGE_EVENT, "Just a message");
     //Adding the default user
     const defaultUser = {
         username: "Unknown",
@@ -59,6 +61,7 @@ io.on("connection", (socket) => {
 
     //Tracking User Info
     socket.on(NAME_SELECT_EVENT, (data) => {
+        //Console logging the event in room
         console.log("User selected name: " + data.username);
         removeUserBySocketId(currUsers, data.senderId);
         currUsers.push(data);

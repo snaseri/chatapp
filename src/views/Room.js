@@ -31,10 +31,21 @@ const ChatRoom = (props) => {
         setNewMessage("");
     };
 
+    function getMessageOwner(messageOwner) {
+        if (messageOwner === "sender" ) {
+            return "my-message";
+        }
+        if (messageOwner === "receiver" ) {
+            return "received-message";
+        }
+        if (messageOwner === "CONSOLE" ) {
+            return "console-message";
+        }
+    }
+
     return (
         <div>
             <div className="active-users">
-                <p></p>
                 <h2>Active Users: ({userList.length}) </h2>
                 <ul>
                     {userList.map(function(item) {
@@ -68,8 +79,9 @@ const ChatRoom = (props) => {
                             {messages.map((message, i) => (
                                 <li
                                     key={i}
-                                    className={`message-item ${
-                                        message.ownedByCurrentUser ? "my-message" : "received-message"
+                                    className={`message-item ${ 
+                                        getMessageOwner(message.messageOwner)
+                                        // message.ownedByCurrentUser ? "my-message" : "received-message"
                                     }`}
                                 >
                                     {message.username + ": " + message.body}
