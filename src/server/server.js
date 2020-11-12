@@ -81,6 +81,7 @@ io.on("connection", (socket) => {
         console.log(`Client ${socket.id} diconnected`);
         //Removing users from currUsers variable on disconnect
         removeUserBySocketId(currUsers, socket.id)
+        generateRoomActiveUsers(roomId)
         socket.leave(roomId);
     });
 
