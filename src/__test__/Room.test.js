@@ -1,36 +1,22 @@
 import React from "react";
-import { render, unmountComponentAtNode } from "react-dom";
-import { act } from "react-dom/test-utils";
-
+import { createMemoryHistory } from "history";
+import { render, screen } from '@testing-library/react'
+import userEvent from '@testing-library/user-event'
 import Room from "../components/Room";
+import { BrowserRouter as Router, Route} from 'react-router-dom'
+import App from '../App';
 
-let container = null;
-beforeEach(() => {
-    // setup a DOM element as a render target
-    container = document.createElement("div");
-    document.body.appendChild(container);
-});
 
-afterEach(() => {
-    // cleanup on exiting
-    unmountComponentAtNode(container);
-    container.remove();
-    container = null;
-});
+const renderWithRouter = (ui, { route = '/' } = {}) => {
+    window.history.pushState({}, 'room1', route)
 
-it("renders active users", () => {
-    act(() => {
-        // render(<Room roomId={2}/>, container);
-    });
-    // expect(container.textContent).toBe("Active Users");
+    return render(ui, { wrapper: Router })
+}
 
-    // act(() => {
-    //     render(<Room name="Jenny" />, container);
-    // });
-    // expect(container.textContent).toBe("Hello, Jenny!");
-    //
-    // act(() => {
-    //     render(<Room name="Margaret" />, container);
-    // });
-    // expect(container.textContent).toBe("Hello, Margaret!");
-});
+test('Rendering the HTML of the chat room', () => {
+    const route = '/room1'
+    renderWithRouter(<Room match={{params: {roomId: "room1"}, isExact: true, path: "/:roomId", url: "/room1"}}/>, { route })
+
+   expect(screen.getByText('You\'re in Room: room1')).toBeInTheDocument()
+})
+

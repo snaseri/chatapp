@@ -6,7 +6,7 @@ import Room from "../components/Room";
 import RoomSelection from "../components/RoomSelection";
 
 
-test("Home page renders correctly", () => {
+test("Home page renders correctly - HTML Test", () => {
   const history = createMemoryHistory();
   render(
       <Router history={history}>
