@@ -5,9 +5,7 @@ import useChat from "../ChatHandler";
 
 
 const ChatRoom = (props) => {
-    console.log(props);
     const { roomId } = props.match.params;
-    console.log(roomId);
     const { messages, sendMessage, username, selectName, userList} = useChat(roomId);
 
 
@@ -21,6 +19,7 @@ const ChatRoom = (props) => {
     };
 
     const handleSetUsername = () => {
+        console.log("Setting name");
         selectName(userName);
     };
 
