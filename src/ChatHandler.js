@@ -44,6 +44,7 @@ const useChat = (roomId) => {
                     senderId: "CONSOLE",
                     username: "CONSOLE",
                     roomId: roomId,
+                    avatar: "https://p.kindpng.com/picc/s/146-1466923_console-icon-free-download-console-application-icon-hd.png",
                     ownedByCurrentUser: 1 === 2,
                     messageOwner: "CONSOLE"
                 };
