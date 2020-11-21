@@ -47,17 +47,23 @@ const ChatRoom = (props) => {
     console.log(username);
     return (
         <div>
-            <p>{currentUser.avatar}</p>
+
             <div className="active-users">
+
                 <h2>Active Users: ({userList.length}) </h2>
                 <ul>
                     {userList.map(function(item) {
-                        return <li key={item}>{item.username}</li>;
+                        return <li key={item}>{item.username} </li>;
                     })}
                 </ul>
             </div>
+
+            <div className="chat-room-metric">
+                <b><p>You're in Room: {roomId}</p></b>
+                <p>Messages sent in this room: {messages.length}</p>
+            </div>
+
             <div className="chat-room-header">
-                <img src={currentUser.avatar}  width="50" height="50"/>
                 <input
                     className="name-input-field"
                     type="text"
@@ -68,15 +74,24 @@ const ChatRoom = (props) => {
                 <button to={`/RoomSelector`} onClick={handleSetUsername} className="select-name-button">
                     Set
                 </button>
-                {/*<form method="post" enctype="multipart/form-data" action="/upload">*/}
-                {/* <input  className="file-input" type="file" name="file"/>*/}
-                {/* <input type="submit" value="Submit"/>*/}
-                {/*</form>*/}
 
-                <div className="chat-room-metric">
-                <b><p>You're in Room: {roomId}</p></b>
-                <p>Messages sent in this room: {messages.length}</p>
+            </div>
+
+            <div className="chat-room-header">
+                <img src={currentUser.avatar}  width="50" height="50"/>
+
+                <div className="avatar-input">
+                    <input
+                        className="avatar-input-field"
+                        type="text"
+                        placeholder="Please Enter The URL For Your Avatar Image"
+
+                    />
+                    <button to={`/RoomSelector`} onClick={handleSetUsername} className="select-avatar-button">
+                        Set
+                    </button>
                 </div>
+            </div>
                 <div className="chat-room-container">
                     <div className="messages-container">
                         <ol className="messages-list">
@@ -88,7 +103,8 @@ const ChatRoom = (props) => {
                                         // message.ownedByCurrentUser ? "my-message" : "received-message"
                                     }`}
                                 >
-                                    {message.username + ": " + message.body}
+                                    <img src={currentUser.avatar}  width="25" height="25"/>
+                                    {"           "+ message.username + ": " + message.body}
                                 </li>
                             ))}
                         </ol>
@@ -104,7 +120,6 @@ const ChatRoom = (props) => {
                     </button>
                 </div>
             </div>
-        </div>
     );
 };
 
