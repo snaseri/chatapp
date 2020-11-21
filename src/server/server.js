@@ -78,6 +78,12 @@ io.on("connection", (socket) => {
         let oldName = getUserBySocketID(socket.id)
         let consoleMsg = oldName.username + " has changed their name to " + data.username;
         io.in(roomId).emit(NEW_CONSOLE_MESSAGE_EVENT, consoleMsg);
+        //This for loops makes user keeps their avatar
+        for (var i=0, len=currUsers.length; i<len; ++i ){
+            if (currUsers[i].senderId == data.senderId) {
+                data.avatar = currUsers[i].avatar;
+            }
+        }
         removeUserBySocketId(currUsers, data.senderId);
         currUsers.push(data);
         generateRoomActiveUsers(roomId);

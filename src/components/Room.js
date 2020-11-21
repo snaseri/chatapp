@@ -115,7 +115,7 @@ const ChatRoom = (props) => {
                                         // message.ownedByCurrentUser ? "my-message" : "received-message"
                                     }`}
                                 >
-                                    <img src={message.avatar}  width="25" height="25"/>
+                                    <img src={message.avatar}  width="32" height="32"/>
                                     {"           "+ message.username + ": " + message.body}
                                 </li>
                             ))}
