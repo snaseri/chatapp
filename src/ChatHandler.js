@@ -8,7 +8,7 @@ const NEW_CONSOLE_MESSAGE_EVENT = "newConsoleMessage";
 const AVATAR_SELECT_EVENT = "avatarSelected";
 const SERVER_URL = "http://localhost:4000";
 
-const DEFAULT_AVATAR = "https://icon-library.com/images/funny-icon/funny-icon-16.jpg"
+const DEFAULT_AVATAR = "https://www.pavilionweb.com/wp-content/uploads/2017/03/man-300x300.png"
 
 
 const useChat = (roomId) => {
@@ -45,7 +45,7 @@ const useChat = (roomId) => {
                     senderId: "CONSOLE",
                     username: "CONSOLE",
                     roomId: roomId,
-                    avatar: "https://p.kindpng.com/picc/s/146-1466923_console-icon-free-download-console-application-icon-hd.png",
+                    avatar: "https://www.clipartmax.com/png/middle/264-2647820_radio-broadcast-comments-broadcast-icon-png.png",
                     ownedByCurrentUser: 1 === 2,
                     messageOwner: "CONSOLE"
                 };

@@ -72,7 +72,7 @@ const ChatRoom = (props) => {
 
             <div className="chat-room-metric">
                 <b><p>You're in Room: {roomId}</p></b>
-                <p>Messages sent in this room: {messages.length}</p>
+                <p>Messages in this room: {messages.length}</p>
             </div>
 
             <div className="chat-room-header">

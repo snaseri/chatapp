@@ -40,7 +40,7 @@ io.on("connection", (socket) => {
         username: "Unknown",
         senderId: socket.id,
         roomId: roomId,
-        avatar: "https://icon-library.com/images/funny-icon/funny-icon-16.jpg"
+        avatar: "https://www.pavilionweb.com/wp-content/uploads/2017/03/man-300x300.png"
     }
     currUsers.push(defaultUser);
 
