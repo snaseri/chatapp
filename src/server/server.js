@@ -5,6 +5,7 @@ const PORT = 4000;
 const NEW_MESSAGE_EVENT = "newMessage";
 const NEW_CONSOLE_MESSAGE_EVENT = "newConsoleMessage";
 const NAME_SELECT_EVENT = "nameSelected";
+const AVATAR_SELECT_EVENT = "avatarSelected";
 const USER_JOIN_EVENT = "userJoined"
 
 //An Array to keep track of all connected users
@@ -64,6 +65,7 @@ io.on("connection", (socket) => {
     });
 
     //Tracking User Info
+    //CHANGING NAME
     socket.on(NAME_SELECT_EVENT, (data) => {
         //Console logging the event in room
         console.log("User selected name: " + data.username);
@@ -72,8 +74,20 @@ io.on("connection", (socket) => {
         io.in(roomId).emit(NEW_CONSOLE_MESSAGE_EVENT, consoleMsg);
         removeUserBySocketId(currUsers, data.senderId);
         currUsers.push(data);
-        io.in(roomId).emit(USER_INFO, data);
         generateRoomActiveUsers(roomId);
+    });
+    //CHANGING AVATAR
+    socket.on(AVATAR_SELECT_EVENT, (data) => {
+        //updating the avatar
+        for (var i=0, len=currUsers.length; i<len; ++i ){
+            if (currUsers[i].senderId == data.senderId) {
+                currUsers[i].avatar = data.avatar;
+                console.log("Avatar updated");
+                //Console logging the event in room
+                let consoleMsg = currUsers[i].username + " Update their avatar. ";
+                io.in(roomId).emit(NEW_CONSOLE_MESSAGE_EVENT, consoleMsg);
+            }
+        }
     });
 
     // Remove user from the array of current users when a user leaves

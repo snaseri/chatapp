@@ -6,11 +6,12 @@ import useChat from "../ChatHandler";
 
 const ChatRoom = (props) => {
     const { roomId } = props.match.params;
-    const { messages, sendMessage, username, selectName, userList} = useChat(roomId);
+    const { messages, sendMessage, username, selectName, userList, selectAvatar, avatar} = useChat(roomId);
 
 
     const [newMessage, setNewMessage] = React.useState("");
     const [userName, setUsername] = React.useState();
+    const [userAvatar, setUserAvatar] = React.useState();
 
 
     const handleUsernameChange = (e) => {
@@ -22,6 +23,17 @@ const ChatRoom = (props) => {
         console.log("Setting name");
         selectName(userName);
     };
+
+    const handleSetAvatar = () => {
+        console.log("Setting Avatar");
+        selectAvatar(userAvatar);
+    };
+
+    const handleAvatarChange = (e) => {
+        setUserAvatar(e.target.value);
+
+    };
+
 
     const handleNewMessageChange = (event) => {
         setNewMessage(event.target.value);
@@ -78,16 +90,16 @@ const ChatRoom = (props) => {
             </div>
 
             <div className="chat-room-header">
-                <img src=""  width="50" height="50"/>
 
                 <div className="avatar-input">
                     <input
                         className="avatar-input-field"
                         type="text"
                         placeholder="Please Enter The URL For Your Avatar Image"
-
+                        value={userAvatar}
+                        onChange={handleAvatarChange}
                     />
-                    <button to={`/RoomSelector`} onClick={handleSetUsername} className="select-avatar-button">
+                    <button to={`/RoomSelector`} onClick={handleSetAvatar} className="select-avatar-button">
                         Set
                     </button>
                 </div>

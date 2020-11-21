@@ -5,6 +5,7 @@ const USER_JOIN_EVENT = "userJoined"
 const NAME_SELECT_EVENT = "nameSelected";
 const NEW_MESSAGE_EVENT = "newMessage";
 const NEW_CONSOLE_MESSAGE_EVENT = "newConsoleMessage";
+const AVATAR_SELECT_EVENT = "avatarSelected";
 const SERVER_URL = "http://localhost:4000";
 
 const DEFAULT_AVATAR = "https://icon-library.com/images/funny-icon/funny-icon-16.jpg"
@@ -13,6 +14,7 @@ const DEFAULT_AVATAR = "https://icon-library.com/images/funny-icon/funny-icon-16
 const useChat = (roomId) => {
     const [messages, setMessages] = useState([]);
     const [username, setUsername] = useState("");
+    const [userAvatar, setUserAvatar] = useState("");
     const [userList, setUserList] = useState([]);
   //  const [] = useState("");
     const socketRef = useRef();
@@ -63,6 +65,10 @@ const useChat = (roomId) => {
             setUsername(data);
         });
 
+        //USER AVATAR EVENT
+        socketRef.current.on(AVATAR_SELECT_EVENT, (data) => {
+            setUserAvatar(data);
+        });
 
         return () => {
             socketRef.current.disconnect();
@@ -90,6 +96,14 @@ const useChat = (roomId) => {
         });
     };
 
+    const selectAvatar = (avatar) => {
+        socketRef.current.emit(AVATAR_SELECT_EVENT, {
+            senderId: socketRef.current.id,
+            roomId: roomId,
+            avatar: avatar
+        });
+    };
+
     const userJoin = (name) => {
         socketRef.current.emit(USER_JOIN_EVENT, {
             username: name,
@@ -98,7 +112,7 @@ const useChat = (roomId) => {
         });
     };
 
-    return { messages, sendMessage, username, selectName, userList };
+    return { messages, sendMessage, username, selectName, userList, selectAvatar };
 };
 
 export default useChat;
