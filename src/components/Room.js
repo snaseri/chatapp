@@ -6,7 +6,7 @@ import useChat from "../ChatHandler";
 
 const ChatRoom = (props) => {
     const { roomId } = props.match.params;
-    const { messages, sendMessage, username, selectName, userList} = useChat(roomId);
+    const { messages, sendMessage, username, selectName, userList, currentUser} = useChat(roomId);
 
 
     const [newMessage, setNewMessage] = React.useState("");
@@ -44,8 +44,10 @@ const ChatRoom = (props) => {
         }
     }
 
+    console.log(username);
     return (
         <div>
+            <p>{currentUser.avatar}</p>
             <div className="active-users">
                 <h2>Active Users: ({userList.length}) </h2>
                 <ul>
@@ -55,6 +57,7 @@ const ChatRoom = (props) => {
                 </ul>
             </div>
             <div className="chat-room-header">
+                <img src={currentUser.avatar}  width="50" height="50"/>
                 <input
                     className="name-input-field"
                     type="text"
