@@ -6,7 +6,7 @@ const NEW_MESSAGE_EVENT = "newMessage";
 const NEW_CONSOLE_MESSAGE_EVENT = "newConsoleMessage";
 const NAME_SELECT_EVENT = "nameSelected";
 const USER_JOIN_EVENT = "userJoined"
-const USER_INFO = "userInfo"
+
 //An Array to keep track of all connected users
 const currUsers = [];
 
@@ -42,7 +42,7 @@ io.on("connection", (socket) => {
         avatar: "https://icon-library.com/images/funny-icon/funny-icon-16.jpg"
     }
     currUsers.push(defaultUser);
-    io.in(roomId).emit(USER_INFO, defaultUser);
+
 
     generateRoomActiveUsers(roomId)
 
@@ -54,6 +54,7 @@ io.on("connection", (socket) => {
         for (var i=0, len=currUsers.length; i<len; ++i ){
             if (currUsers[i].senderId == data.senderId) {
                 data.username = currUsers[i].username;
+                data.avatar = currUsers[i].avatar;
             }
         }
         io.in(roomId).emit(NEW_MESSAGE_EVENT, data);
