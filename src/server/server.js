@@ -47,10 +47,16 @@ io.on("connection", (socket) => {
 
     generateRoomActiveUsers(roomId)
 
+
+    //Restore messages from the log file back into the chat room:
+    for (var i = 0, len=savedMessages.length; i < len; i++) {
+        if (savedMessages[i].roomId == roomId) {
+            io.in(roomId).emit(NEW_MESSAGE_EVENT, savedMessages[i]);
+        }
+    }
+
     // Listen for new messages
     socket.on(NEW_MESSAGE_EVENT, (data) => {
-        console.log("Current array: ");
-        console.log();
         //Binding sender username to the message
         for (var i=0, len=currUsers.length; i<len; ++i ){
             if (currUsers[i].senderId == data.senderId) {
@@ -143,4 +149,3 @@ function generateRoomActiveUsers(roomId) {
     console.log("Users in room " + roomId +  ": " + usersInCurrentRoom.toString());
     io.in(roomId).emit(USER_JOIN_EVENT, usersInCurrentRoom);
 }
-
