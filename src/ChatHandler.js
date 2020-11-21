@@ -45,7 +45,7 @@ const useChat = (roomId) => {
                     senderId: "CONSOLE",
                     username: "CONSOLE",
                     roomId: roomId,
-                    avatar: "https://www.clipartmax.com/png/middle/264-2647820_radio-broadcast-comments-broadcast-icon-png.png",
+                    avatar: "https://static.thenounproject.com/png/78457-200.png",
                     ownedByCurrentUser: 1 === 2,
                     messageOwner: "CONSOLE"
                 };
