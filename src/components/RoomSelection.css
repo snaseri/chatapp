@@ -1,3 +1,18 @@
+
+.white-text-color{
+    color: #666666;
+}
+
+.home-title {
+    padding-top: 150px;
+    font-size: 50px;
+    text-align: center;
+}
+
+.blue-text-color {
+    color: #3f95ba;
+}
+
 .roomsel-container {
     position: fixed;
     left: 9%;
