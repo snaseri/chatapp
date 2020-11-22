@@ -1,28 +1,29 @@
 # Getting Started with my Chat App
 
 After running git clone and obtaining the project. You will need to run the following 3 commands in the terminal
-to get these dependencies:
-npm i --save socket.io-client
-npm i --save socket.io
-npm install react-router-dom
+to get these dependencies:  
+npm i --save socket.io-client  
+npm i --save socket.io  
+npm install react-router-dom  
 
-After that you can start the app by typing either of the following commands in the terminal:
-npm start
-  react-scripts start
+After that you can start the app by typing either of the following commands in the terminal:  
+npm start  
+react-scripts start  
+
 After doing this go to the following directory /src/server of the app and open a gitbash terminal there.
 There should be a javascript file inside there named 'server'. Type the following command in the gitbash terminal
-to run the server:
+to run the server:  
 node server.js
 
 The front-end of the project will be running on http://localhost:3000 whereas the server will be running on http://localhost:4000
 
 The reason I chose to use socket.io to build my app is socket.io is a library that allows the use of websockets which
 allows bidrectional communication between a server and a client. This is good because it allows for realtime communication
-which is much more suitable for a chat app. Whereas, a HTTP based API works by request-response. in a request-response
-scenario the client would have to continuously ask for changes in set interval which is not real-time. Additionally,
-HTTP is a stateless protocol and a overhead of a HTTP header is added to every message. These headers can be quiet large
+which is much more suitable for a chat app. Whereas, a HTTP based API works by request-response. In a request-response
+scenario the client would have to continuously ask for changes in set interval which is not real-time and ideal for a chat app. 
+Additionally, HTTP is a stateless protocol and a overhead of a HTTP header is added to every message. These headers can be quiet large
 and this can have a negative impact for frequent messages, specially if the message is very small. However, if I were to
-do this project again I would consider looking at other libraries This is because this library is not very well maintained
+do this project again I would consider looking at other libraries that offer Websockets. This is because this library is not very well maintained
 anymore and the newer versions can have problems. As you may have noticed in my package.json I'm using an older version of
 socket.io(2.3.0) instead of the newset which is 3.0.0. This is because of the CORS issue that the newer versions have.
 This is a well known issue in socket.io community. Along with other issue such has their documentation not being maintained
