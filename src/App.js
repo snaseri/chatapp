@@ -2,8 +2,8 @@ import React from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
 import "./index.css";
-import ChatRoom from "./components/Room";
-import RoomSelection from "./components/RoomSelection";
+import ChatRoom from "./views/Room";
+import RoomSelection from "./views/RoomSelection";
 
 
 function App() {

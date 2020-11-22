@@ -1,70 +1,35 @@
-# Getting Started with Create React App
+# Getting Started with my Chat App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+After running git clone and obtaining the project. You will need to run the following 3 commands in the terminal
+to get these dependencies:
+npm i --save socket.io-client
+npm i --save socket.io
+npm install react-router-dom
 
-## Available Scripts
+After that you can start the app by typing either of the following commands in the terminal:
+npm start
+  react-scripts start
+After doing this go to the following directory /src/server of the app and open a gitbash terminal there.
+There should be a javascript file inside there named 'server'. Type the following command in the gitbash terminal
+to run the server:
+node server.js
 
-In the project directory, you can run:
+The front-end of the project will be running on http://localhost:3000 whereas the server will be running on http://localhost:4000
 
-### `npm start`
+The reason I chose to use socket.io to build my app is socket.io is a library that allows the use of websockets which
+allows bidrectional communication between a server and a client. This is good because it allows for realtime communication
+which is much more suitable for a chat app. Whereas, a HTTP based API works by request-response. in a request-response
+scenario the client would have to continuously ask for changes in set interval which is not real-time. Additionally,
+HTTP is a stateless protocol and a overhead of a HTTP header is added to every message. These headers can be quiet large
+and this can have a negative impact for frequent messages, specially if the message is very small. However, if I were to
+do this project again I would consider looking at other libraries This is because this library is not very well maintained
+anymore and the newer versions can have problems. As you may have noticed in my package.json I'm using an older version of
+socket.io(2.3.0) instead of the newset which is 3.0.0. This is because of the CORS issue that the newer versions have.
+This is a well known issue in socket.io community. Along with other issue such has their documentation not being maintained
+and updated with some functions that are on the documentation but dont exist in the library.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
-
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
-
-### `npm test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+I also used react-router-dom to which allows directing users to different components that render different things based on their path.
+I found this extremely useful as its easy to setup because as mentioned on their website(https://reactrouter.com/web/guides/quick-start)
+this tool was created and designed for create react app which is what I am using. However, according to https://www.pluralsight.com/guides/pros-and-cons-of-client-side-routing-with-react
+this tool has some downsides in terms of performance. Such as 'The initial loading time is considerably large as all the routes, components, and HTML have to be loaded at once when the application first mounts . The whole website or web app needs to be loaded on the first request.' and 'There is unnecessary data download time for unusable views that'. However,
+this didn't cause any performance issues for me as my application didn't contain many different views. Overall, I found this library very useful.

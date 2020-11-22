@@ -1,7 +1,7 @@
 import React from "react";
 import { render, screen, fireEvent, getByTestId } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
-import Room from "../components/Room";
+import Room from "../views/Room";
 import { BrowserRouter as Router, Route} from 'react-router-dom'
 
 
