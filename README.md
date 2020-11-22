@@ -1,14 +1,14 @@
 # Getting Started with my Chat App
 
 After running git clone and obtaining the project. You will need to run the following 3 commands in the terminal
-to get these dependencies:  
+to get these dependencies: (Open the terminal in the root project directory)  
 npm i --save socket.io-client  
 npm i --save socket.io  
 npm install react-router-dom  
 
-After that you can start the app by typing either of the following commands in the terminal:  
+After that you can start the app by typing the following commands in the terminal:  
 npm start  
-react-scripts start  
+
 
 After doing this go to the following directory /src/server of the app and open a gitbash terminal there.
 There should be a javascript file inside there named 'server'. Type the following command in the gitbash terminal
