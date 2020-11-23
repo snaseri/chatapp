@@ -17,6 +17,12 @@ node server.js
 
 The front-end of the project will be running on http://localhost:3000 whereas the server will be running on http://localhost:4000
 
+RUNNING TESTS:
+All my tests are located at src/__tests__. To run them I am using Webstorm IDE. If you open the project using the same IDE go the tests directory and open of the test files, on the left handside of each test fucntion there will be a green run button to run the tests. Alternatively, if you open a terminal in the root directory of the project and type the following 2 commands to run the 2 tests that I have done:
+npm test src/__test__/App.test.js  
+npm test src/__test__/Room.test.js  
+
+
 The reason I chose to use socket.io to build my app is socket.io is a library that allows the use of websockets which
 allows bidrectional communication between a server and a client. This is good because it allows for realtime communication
 which is much more suitable for a chat app. Whereas, a HTTP based API works by request-response. In a request-response
