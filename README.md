@@ -33,4 +33,11 @@ I also used react-router-dom to which allows directing users to different compon
 I found this extremely useful as its easy to setup because as mentioned on their website(https://reactrouter.com/web/guides/quick-start)
 this tool was created and designed for create react app which is what I am using. However, according to https://www.pluralsight.com/guides/pros-and-cons-of-client-side-routing-with-react
 this tool has some downsides in terms of performance. Such as 'The initial loading time is considerably large as all the routes, components, and HTML have to be loaded at once when the application first mounts . The whole website or web app needs to be loaded on the first request.' and 'There is unnecessary data download time for unusable views that'. However,
-this didn't cause any performance issues for me as my application didn't contain many different views. Overall, I found this library very useful.
+this didn't cause any performance issues for me as my application didn't contain many different views. Overall, I found this library very useful.  
+
+
+ASSUMPTIONS MADE FOR REQUIRMENTS:
+3) Some way to start and stop the game/collaboration/interaction:
+I added a home page and asked a user to select a room to start the collaboration and I assumed if the user wants to stop the collaboration they can close the tab or go back to the home page to enter a new chat room. Therefore, in the chat room I did not add the option(such as a button) to directly end the collaboration.
+
+
